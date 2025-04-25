@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinclude -g
+CFLAGS = -Wall -Wextra -Iinclude -I/usr/include/modbus -g
 
 # Directories
 SRC_DIR = src
@@ -19,21 +19,21 @@ all: $(TARGET)
 
 # Build target
 $(TARGET): $(OBJS)
-    @mkdir -p $(BIN_DIR)
-    $(CC) $(CFLAGS) $(OBJS) -o $(TARGET) -lsqlite3
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) -lsqlite3 -lmodbus
 
 # Compile source files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-    @mkdir -p $(dir $@)
-    $(CC) $(CFLAGS) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(SRC_DIR)
 
 # Clean build files
 clean:
-    rm -rf $(BUILD_DIR) $(BIN_DIR)
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
 # Run the program
 run: all
-    ./$(TARGET)
+	./$(TARGET)
 
 # Phony targets
 .PHONY: all clean run

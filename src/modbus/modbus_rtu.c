@@ -1,6 +1,7 @@
 #include "modbus_rtu.h"
 #include <modbus.h>
 #include <stdio.h>
+#include <errno.h>
 
 static modbus_t *ctx = NULL;
 

@@ -1,6 +1,6 @@
 #include "user_menu.h"
-#include "../database/db_manager.h"
-#include "../access_control/access_manager.h"
+#include "db_manager.h"
+#include "access_manager.h"
 #include <stdio.h>
 #include <string.h>
 

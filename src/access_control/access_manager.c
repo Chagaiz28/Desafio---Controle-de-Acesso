@@ -1,5 +1,5 @@
 #include "access_manager.h"
-#include "../database/db_manager.h"
+#include "db_manager.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -68,4 +68,4 @@ int request_door_access(int door_id) {
     }
 }
 
-int request_events_access()
+int request_events_access();

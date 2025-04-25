@@ -1,10 +1,12 @@
 #include "db_manager.h"
+#include "access_manager.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 // Ponteiro para o banco de dados SQLite
-static sqlite3 *db = NULL;
+sqlite3 *db = NULL;
+#define INPUT_SIZE 64 // Tamanho máximo para entradas de texto
 
 // Inicializa o banco de dados e cria as tabelas necessárias
 int db_init(const char *db_path) {
@@ -130,6 +132,28 @@ int db_list_events() {
         printf("%d | %s | %d | %s\n", id, user_name, door_id, timestamp);
     }
 
+
     sqlite3_finalize(stmt);
+    return 0;
+}
+
+int request_events_access() {
+    char username[INPUT_SIZE];
+    int is_admin;
+
+    printf("== Autenticação necessária para listar eventos ==\n");
+
+    if (authenticate_user(username, &is_admin)) {
+        if (is_admin) {
+            printf("Acesso autorizado. Listando eventos...\n");
+            db_list_events();
+            return 1;
+        } else {
+            printf("Acesso negado. Apenas administradores podem listar eventos.\n");
+        }
+    } else {
+        printf("Acesso negado. Usuário ou senha inválidos.\n");
+    }
+
     return 0;
 }
