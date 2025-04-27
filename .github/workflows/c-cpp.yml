@@ -1,0 +1,34 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "Develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y libmodbus-dev libsqlite3-dev
+
+    - name: Set up Python environment (for simulator)
+      run: |
+        sudo apt-get install -y python3 python3-venv
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install pymodbus pyserial
+
+    - name: Build project
+      run: make
+
+    - name: Run tests
+      run: make check
+
+    - name: Clean build
+      run: make clean
