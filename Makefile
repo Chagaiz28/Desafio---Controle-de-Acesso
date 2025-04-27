@@ -20,7 +20,8 @@ all: $(TARGET)
 # Build target
 $(TARGET): $(OBJS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) -lsqlite3 -lmodbus
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) -lsqlite3 -lmodbus -lssl -lcrypto
+
 
 # Compile source files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
