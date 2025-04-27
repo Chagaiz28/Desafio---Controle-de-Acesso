@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "crypto.h"
 
 // Ponteiro para o banco de dados SQLite
 sqlite3 *db = NULL;
@@ -51,19 +52,28 @@ int db_init(const char *db_path) {
 
 // Insere um novo usuário no banco de dados
 int db_insert_user(const char *name, const char *password, int is_admin) {
-    char *err_msg = NULL;
-    char sql[256];
+    char hashed_password[65];
+    sha256_hash(password, hashed_password); // gera o hash da senha
 
-    snprintf(sql, sizeof(sql), 
-        "INSERT INTO users (name, password, is_admin) VALUES ('%s', '%s', %d);", 
-        name, password, is_admin);
+    sqlite3_stmt *stmt;
+    const char *sql = "INSERT INTO users (name, password, is_admin) VALUES (?, ?, ?);";
 
-    if (sqlite3_exec(db, sql, 0, 0, &err_msg) != SQLITE_OK) {
-        fprintf(stderr, "Erro ao inserir usuário: %s\n", err_msg);
-        sqlite3_free(err_msg);
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) != SQLITE_OK) {
+        fprintf(stderr, "Erro ao preparar inserção de usuário: %s\n", sqlite3_errmsg(db));
         return -1;
     }
 
+    sqlite3_bind_text(stmt, 1, name, -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 2, hashed_password, -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, is_admin);
+
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        fprintf(stderr, "Erro ao inserir usuário: %s\n", sqlite3_errmsg(db));
+        sqlite3_finalize(stmt);
+        return -1;
+    }
+
+    sqlite3_finalize(stmt);
     return 0;
 }
 
