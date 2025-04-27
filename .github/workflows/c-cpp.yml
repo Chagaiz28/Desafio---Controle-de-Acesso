@@ -20,12 +20,10 @@ jobs:
     - name: Check Python version
       run: python3 --version
 
-    - name: Set up Python environment
+    - name: Use existing virtual environment
       run: |
-        python3 -m venv ${{ github.workspace }}/venv
-        ${{ github.workspace }}/venv/bin/python -m ensurepip --upgrade
-        ${{ github.workspace }}/venv/bin/pip install --upgrade pip
-        ${{ github.workspace }}/venv/bin/pip install pymodbus pyserial
+        ${{ github.workspace }}/venv/bin/python -m pip install --upgrade pip
+        ${{ github.workspace }}/venv/bin/python -m pip install pymodbus pyserial
 
     - name: Debug venv creation
       run: ls -l ${{ github.workspace }}/venv/bin
