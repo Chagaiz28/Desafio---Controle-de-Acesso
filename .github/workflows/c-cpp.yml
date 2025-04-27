@@ -23,6 +23,7 @@ jobs:
     - name: Set up Python environment
       run: |
         python3 -m venv ${{ github.workspace }}/venv
+        ${{ github.workspace }}/venv/bin/python -m ensurepip --upgrade
         ${{ github.workspace }}/venv/bin/pip install --upgrade pip
         ${{ github.workspace }}/venv/bin/pip install pymodbus pyserial
 
