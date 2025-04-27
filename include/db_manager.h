@@ -26,4 +26,6 @@ int db_log_event(const char *user_name, int door_id);
 // Lista todos os eventos registrados
 int db_list_events();
 
+extern sqlite3 *db; // Variável global para o banco de dados
+
 #endif // DB_MANAGER_H

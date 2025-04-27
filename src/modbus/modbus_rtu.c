@@ -1,5 +1,6 @@
-#include "modbus_rtu.h"
 #include <modbus.h>
+#include <errno.h> 
+#include "modbus_rtu.h"
 #include <stdio.h>
 #include <errno.h>
 
@@ -32,11 +33,15 @@ int modbus_rtu_open_door(int door_id) {
     else if (door_id == 2) address = 0x35;
     else return 0;
 
-    // Valor para "abrir" a porta
-    uint16_t value = 0xFF;
+    uint16_t value = 0xFF; // Valor para liberar porta
 
     int rc = modbus_write_register(ctx, address, value);
-    return (rc == 1);
+    if (rc == -1) {
+        printf("Erro ao enviar comando Modbus: %s\n", modbus_strerror(errno));
+        return 0;
+    }
+
+    return 1;
 }
 
 void modbus_rtu_close() {
