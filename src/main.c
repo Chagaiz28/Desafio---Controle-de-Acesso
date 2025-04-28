@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     if (!modbus_rtu_init(argv[1], 9600)) {
         fprintf(stderr, "Falha ao inicializar conexão Modbus.\n");
     }
+    printf("Modbus inicializado com sucesso!\n");
 
     // Inicia o menu principal
     user_menu_start();
