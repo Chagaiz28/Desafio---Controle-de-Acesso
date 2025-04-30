@@ -1,4 +1,6 @@
 #include "access_manager.h"
+#include "modbus_rtu.h"
+#include <modbus/modbus.h>
 #include "db_manager.h"
 #include <stdio.h>
 #include <string.h>
@@ -63,7 +65,7 @@ int request_door_access(int door_id) {
 
     if (authenticate_user(username, &is_admin)) {
         printf("Acesso autorizado. Liberando porta %d...\n", door_id);
-        // Aqui no futuro: chamar modbus para abrir a porta
+        modbus_rtu_open_door(door_id);
         db_log_event(username, door_id);
         printf("Evento registrado!\n");
         return 1;
