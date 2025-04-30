@@ -116,3 +116,6 @@ Slave (Python): /dev/pts/10 Master (C): /dev/pts/11
 -   socat
 -   Bash
 -   WSL + Ubuntu
+
+## Link to the project presentation video:
+https://youtu.be/eOrMRiHLWU4
