@@ -2,11 +2,11 @@
 
 A complete and modular room access control system with password authentication, permission control, event logging, simulated Modbus RTU communication, and a Flask web interface. Designed to simulate a real embedded environment, with all components professionally integrated.
 
-## 🧠 Overview
+## Overview
 
 This project was developed as part of an Embedded Linux challenge and aims to simulate a physical access control system, with administrative functionalities and hardware simulation via Modbus RTU.
 
-## ✨ Features
+## Features
 
 - User registration (common or administrator)
 - Authentication with encrypted password (SHA-256)
@@ -16,7 +16,7 @@ This project was developed as part of an Embedded Linux challenge and aims to si
 - Web interface with Flask for data consultation
 - Serial port simulation with socat
 
-## 📃 Project Structure
+## Project Structure
 
 
 ## Estrutura do Projeto
@@ -49,11 +49,11 @@ Desafio---Controle-de-Acesso/
 ├── access_control.db
 └── README.md
 ```
-## 🔐 Password Encryption
+## Password Encryption
 
 User passwords are hashed with SHA-256 before being stored in the SQLite database. The function is located in the `src/security/crypto.c` file, using the `openssl/sha.h` library.
 
-## 🦖 How to Run (WSL mode)
+## How to Run (WSL mode)
 
 1.  Configure WSL (if you haven't already)
 
@@ -97,7 +97,7 @@ User passwords are hashed with SHA-256 before being stored in the SQLite databas
     http://localhost:5000/events
     ```
 
-## 🔪 Simulation with socat
+## Simulation with socat
 
 We use socat to simulate two serial ports:
 
@@ -107,7 +107,7 @@ We use socat to simulate two serial ports:
 Example:
 Slave (Python): /dev/pts/10 Master (C): /dev/pts/11
 
-## ✅ Made with
+## Made with
 
 -   C (GCC + libmodbus)
 -   SQLite3
