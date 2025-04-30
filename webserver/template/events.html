@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+    <link rel="stylesheet" href="..\static\events.css">
+</head>
+<body>
+    <h1>Access Events</h1>
+    <a href="/">← Back</a>
+    <table border="1">
+        <tr><th>ID</th><th>User</th><th>Door</th><th>Timestamp</th></tr>
+        {% for id, user_name, door_id, timestamp in events %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ user_name }}</td>
+            <td>{{ door_id }}</td>
+            <td>{{ timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
